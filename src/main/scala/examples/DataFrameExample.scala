@@ -1,6 +1,6 @@
 package examples
 
-import org.apache.spark.sql.functions._
+import org.apache.spark.sql.functions.avg
 import org.apache.spark.sql.{ DataFrame, SparkSession }
 
 object DataFrameExample {
