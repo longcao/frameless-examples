@@ -1,9 +1,11 @@
 package examples
 
 import frameless._
-import frameless.functions.aggregate.avg
+import frameless.functions.aggregate.{ avg, count }
 
 import org.apache.spark.sql.{ Dataset, SparkSession }
+
+case class AgeCount(age: Int, count: Long)
 
 object TypedDatasetExample {
   def main(args: Array[String]): Unit = {
@@ -23,6 +25,13 @@ object TypedDatasetExample {
       .show().run
 
     shapeless.test.illTyped { """artists.select(artists('blah))""" } // shouldn't compile
+
+    artists
+      .groupBy(artists('age))
+      .agg(count(artists('age)))
+      .as[AgeCount] // compile-time .as!
+      .filter(_.count > 1)
+      .show().run
 
     spark.stop()
   }
