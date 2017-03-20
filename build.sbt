@@ -5,7 +5,7 @@ lazy val root = (project in file(".")).
       scalaVersion := "2.11.8",
       version      := "0.1.0-SNAPSHOT"
     )),
-    name := "intro-to-frameless",
+    name := "frameless-examples",
     libraryDependencies := Seq(
       "org.apache.spark"    %% "spark-core"          % "2.0.2",
       "org.apache.spark"    %% "spark-sql"           % "2.0.2",
