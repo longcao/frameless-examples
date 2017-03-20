@@ -17,7 +17,7 @@ object DataFrameExample {
       Artist("Carly Rae Jepsen", 31)))
 
     try {
-      artists.agg(avg("age").alias("avg_age")).show
+      artists.agg(avg("age")).show
       artists.select("genre").show // throws an exception
     } finally {
       spark.stop()
