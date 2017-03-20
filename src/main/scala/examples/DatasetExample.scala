@@ -15,6 +15,10 @@ object DatasetExample {
       artists
         .filter(_.age > 30)
         .agg(avg("age")).show
+
+      artists.select("genre").show // hmm, still throws an exception...
+    } catch {
+      case ex: Exception => ex.printStackTrace()
     } finally {
       spark.stop()
     }
