@@ -7,14 +7,7 @@ object RddExample {
   def main(args: Array[String]): Unit = {
     val spark = SparkSession.builder().master("local[*]").getOrCreate
 
-    val artists: RDD[Artist] = spark.sparkContext.parallelize(Seq(
-      Artist("Offset", 25),
-      Artist("Kanye West", 39),
-      Artist("Frank Ocean", 29),
-      Artist("John Mayer", 39),
-      Artist("Aretha Franklin", 74),
-      Artist("Kendrick Lamar", 29),
-      Artist("Carly Rae Jepsen", 31)))
+    val artists: RDD[Artist] = spark.sparkContext.parallelize(Artist.defaultArtists)
 
     val (totalAge, totalCount) = artists
       .map(a => (a.age, 1))
