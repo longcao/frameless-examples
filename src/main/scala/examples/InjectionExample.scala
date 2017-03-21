@@ -1,5 +1,8 @@
 package examples
 
+import cats.Eq
+import cats.implicits._
+
 import frameless._
 
 import org.apache.spark.sql.{ Dataset, SparkSession }
@@ -13,6 +16,10 @@ object Genre {
   case object Soul   extends Genre
   case object Pop    extends Genre
   case object Rock   extends Genre
+
+  implicit val eq: Eq[Genre] = new Eq[Genre] {
+    def eqv(g1: Genre, g2: Genre): Boolean = g1 == g2
+  }
 }
 
 case class ArtistWithGenre(artist: Artist, genre: Genre)
@@ -64,7 +71,7 @@ object InjectionExample {
       ArtistWithGenre(Artist("Kendrick Lamar",    29), Genre.HipHop),
       ArtistWithGenre(Artist("Carly Rae Jepsen",  31), Genre.Pop)))
 
-    artistsWithGenre.filter(_.genre == Genre.HipHop).show().run
+    artistsWithGenre.filter(_.genre === Genre.HipHop).show().run
 
     spark.stop()
   }
